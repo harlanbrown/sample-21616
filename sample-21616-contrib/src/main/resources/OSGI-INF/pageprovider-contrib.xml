@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<component name="org.nuxeo.sample.pageprovider.contrib.withtype">
+
+  <extension
+    target="org.nuxeo.ecm.platform.query.api.PageProviderService"
+    point="providers">
+    <coreQueryPageProvider name="CURRENT_DOC_CHILDREN_WITH_TYPE">
+      <property name="maxResults">PAGE_SIZE</property>
+      <pattern>
+        SELECT * FROM Document WHERE ecm:parentId = ? AND
+        ecm:primaryType = ? AND
+        ecm:mixinType != 'HiddenInNavigation'
+        AND ecm:isCheckedInVersion = 0 AND ecm:currentLifeCycleState !=
+        'deleted'
+      </pattern>
+      <sort ascending="true" column="dc:title"/>
+      <pageSize>50</pageSize>
+    </coreQueryPageProvider>
+  </extension>
+</component>
